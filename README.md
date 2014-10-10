@@ -1,4 +1,4 @@
 node-http.recipe
 ==================
 
-Flapjack recipe for a express based http server.
+Flapjack recipe for an express based http server.
