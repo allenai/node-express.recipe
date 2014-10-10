@@ -1,0 +1,46 @@
+#!/usr/local/bin/node
+var path = require('path');
+var fs = require('fs');
+
+var server = require('../src/server');
+
+// Cut off the first two argv entries ("node" and the path to this script)
+// We expect the script to be called with
+var args = process.argv.slice(2);
+
+function usage(cb) {
+  fs.readFile(path.resolve(__dirname, 'usage.txt'), function(err, data) {
+    console.log(data.toString());
+    if(typeof cb === 'function') {
+      cb();
+    }
+  });
+}
+
+if(args.length === 0) {
+  usage(function() {
+    process.exit(1);
+  });
+}
+
+var command = args.shift();
+
+if(server.hasOwnProperty(command)) {
+  server[command].apply(server, args).then(
+    function(message) {
+      if(message) {
+        console.log(message);
+      }
+    },
+    function(err) {
+      if(err) {
+        console.error(err);
+        process.exit(2);
+      }
+    }
+  );
+} else {
+  usage(function() {
+    process.exit(1);
+  });
+}

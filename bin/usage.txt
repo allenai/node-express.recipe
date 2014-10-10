@@ -1,0 +1,6 @@
+server
+
+Usage: server COMMAND [PORT]
+
+where COMMAND is one of:
+  start, stop, restart
