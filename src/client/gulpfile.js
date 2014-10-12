@@ -22,7 +22,7 @@ if(gutil.env.silent) {
 gulp.task('clean', function(cb) {
   gutil.log(util.format('Removing artifacts from %s',
       gutil.colors.magenta(paths.build)));
-  return del(paths.build + '/**/*', cb);
+  return del(paths.build + '/**/*', { force: true }, cb);
 });
 
 /**
